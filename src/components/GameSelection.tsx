@@ -51,27 +51,6 @@ const GameSelection = ({ playerCount, onGameSelect, onBack }: GameSelectionProps
           </div>
         </div>
 
-        {/* Difficulty Filter */}
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold text-green-800 mb-4">Filter by Difficulty</h3>
-          <div className="flex gap-2 flex-wrap">
-            <Button
-              variant={selectedDifficulty === null ? "default" : "outline"}
-              onClick={() => setSelectedDifficulty(null)}
-              className="border-green-300"
-            >
-              All Games
-            </Button>
-            {['Easy', 'Medium', 'Hard'].map((difficulty) => (
-              <Button
-                key={difficulty}
-                variant={selectedDifficulty === difficulty ? "default" : "outline"}
-                onClick={() => setSelectedDifficulty(difficulty)}
-                className="border-green-300"
-              >
-                {difficulty}
-              </Button>
-            ))}
           </div>
         </div>
 
