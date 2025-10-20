@@ -10,6 +10,8 @@ GET REquest endpoint:
 
 https://api.golfcourseapi.com/v1/search
 
+search_query=pinehurst
+
 ## My Stuff
 
 Thank you for activating your Golf Course API account. You are now ready to use our service!
