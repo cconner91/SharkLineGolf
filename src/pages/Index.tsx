@@ -1,214 +1,170 @@
-
-import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Users, Trophy, Target, DollarSign, User } from "lucide-react";
-import GameSelection from "@/components/GameSelection";
-import ActiveGame from "@/components/ActiveGame";
-import PlayerProfile from "@/components/PlayerProfile";
-import { Player } from "@/types/golf";
+import { ArrowLeft, Users, Target, Trophy, Plus, Minus } from "lucide-react";
+import { GolfGame, Player, HoleScore, GameState } from "@/types/golf";
+import { useToast } from "@/hooks/use-toast";
+import { generateLeaderboard, initializeHoleScores, getPlayerTotal } from "@/utils/scoring";
 
-const Index = () => {
-  const [playerCount, setPlayerCount] = useState<number | null>(null);
-  const [currentView, setCurrentView] = useState<'setup' | 'gameSelection' | 'activeGame' | 'profile'>('setup');
-  const [selectedGame, setSelectedGame] = useState(null);
-  const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
+interface ActiveGameProps {
+  game: GolfGame;
+  playerCount: number;
+  onBack: () => void;
+}
 
-  const handlePlayerCountSelect = (count: number) => {
-    setPlayerCount(count);
-    setCurrentView('gameSelection');
+const ActiveGame = ({ game, playerCount, onBack }: ActiveGameProps) => {
+  const { toast } = useToast();
+  const [gameState, setGameState] = useState<GameState>({
+    gameId: game.id,
+    players: [],
+    currentHole: 1,
+    scores: [],
+    bets: [],
+    isComplete: false
+  });
+
+  const [playerNames, setPlayerNames] = useState<string[]>(
+    Array(playerCount).fill('').map((_, i) => `Player ${i+1}`)
+  );
+
+  const [gameStarted, setGameStarted] = useState(false);
+  const [holeScores, setHoleScores] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    if (gameStarted) {
+      const players: Player[] = playerNames.map((name, index) => ({
+        id: `player-${index}`,
+        name: name || `Player ${index+1}`,
+        handicap: 0
+      }));
+
+      setGameState(prev => ({ ...prev, players }));
+      setHoleScores(initializeHoleScores(players));
+    }
+  }, [gameStarted, playerNames]);
+
+  const handleStartGame = () => {
+    if (playerNames.some(name => !name.trim())) {
+      toast({
+        title: "Please enter all player names",
+        description: "All players need names before starting the game.",
+        variant: "destructive"
+      });
+      return;
+    }
+    setGameStarted(true);
+    toast({
+      title: "Game Started!",
+      description: `${game.name} has begun. Good luck!`,
+    });
   };
 
-  const handleGameSelect = (game: any) => {
-    setSelectedGame(game);
-    setCurrentView('activeGame');
+  const adjustScore = (playerId: string, adjustment: number) => {
+    setHoleScores(prev => ({
+      ...prev,
+      [playerId]: Math.max(1, (prev[playerId] || 4) + adjustment)
+    }));
   };
 
-  const handleBackToSetup = () => {
-    setCurrentView('setup');
-    setPlayerCount(null);
-    setSelectedGame(null);
+  const submitHoleScores = () => {
+    const newScores: HoleScore[] = Object.entries(holeScores).map(([playerId, strokes]) => ({
+      playerId,
+      holeNumber: gameState.currentHole,
+      strokes
+    }));
+
+    setGameState(prev => {
+      const nextHole = prev.currentHole < 18 ? prev.currentHole + 1 : prev.currentHole;
+      const complete = prev.currentHole >= 18;
+      return {
+        ...prev,
+        scores: [...prev.scores, ...newScores],
+        currentHole: nextHole,
+        isComplete: complete
+      };
+    });
+
+    // Reset hole scores for next hole
+    if (gameState.currentHole < 18) {
+      setHoleScores(initializeHoleScores(gameState.players));
+      toast({
+        title: `Hole ${gameState.currentHole} Complete!`,
+        description: `Moving to hole ${gameState.currentHole + 1}`,
+      });
+    } else {
+      toast({
+        title: "Game Complete!",
+        description: "Congratulations on finishing your round!",
+      });
+    }
   };
 
-  const handleProfileSave = (player: Player) => {
-    setCurrentPlayer(player);
-    setCurrentView('setup');
-    console.log('Player saved:', player);
-    // TODO: Save to local storage or database
-  };
+  const leaderboard = generateLeaderboard(gameState.players, gameState.scores, gameState.currentHole);
 
-  if (currentView === 'profile') {
+  if (!gameStarted) {
     return (
-      <PlayerProfile 
-        player={currentPlayer}
-        onSave={handleProfileSave}
-        onBack={() => setCurrentView('setup')}
-      />
-    );
-  }
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex items-center gap-4 mb-8">
+            <Button variant="outline" onClick={onBack} className="border-green-300">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back
+            </Button>
+            <div>
+              <h1 className="text-3xl font-bold text-green-800">{game.name}</h1>
+              <p className="text-green-600">{game.description}</p>
+            </div>
+          </div>
 
-  if (currentView === 'activeGame' && selectedGame) {
-    return (
-      <ActiveGame 
-        game={selectedGame} 
-        playerCount={playerCount!} 
-        onBack={() => setCurrentView('gameSelection')}
-      />
-    );
-  }
-
-  if (currentView === 'gameSelection' && playerCount) {
-    return (
-      <GameSelection 
-        playerCount={playerCount} 
-        onGameSelect={handleGameSelect}
-        onBack={handleBackToSetup}
-      />
+          <Card className="max-w-2xl mx-auto border-green-200">
+            <CardHeader>
+              <CardTitle className="text-green-800">Enter Player Names</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {playerNames.map((name, index) => (
+                  <div key={index}>
+                    <label className="block text-sm font-medium text-green-700 mb-1">
+                      Player {index+1}
+                    </label>
+                    <Input
+                      value={name}
+                      onChange={(e) => {
+                        const newNames = [...playerNames];
+                        newNames[index] = e.target.value;
+                        setPlayerNames(newNames);
+                      }}
+                      placeholder={`Player ${index+1}`}
+                      className="border-green-300 focus:border-green-500"
+                    />
+                  </div>
+                ))}
+                
+                <Button 
+                  onClick={handleStartGame}
+                  className="w-full bg-green-600 hover:bg-green-700 mt-6"
+                  size="lg"
+                >
+                  Start Game
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-green-600 rounded-full">
-              <Trophy className="h-8 w-8 text-white" />
-            </div>
-            <h1 className="text-5xl font-bold text-green-800">GolfBet Pro</h1>
-          </div>
-          <p className="text-xl text-green-700 max-w-2xl mx-auto">
-            Track scores, manage bets, and compete with your golf group in style
-          </p>
-          
-          {/* Profile Button */}
-          <div className="mt-6">
-            <Button 
-              variant="outline" 
-              onClick={() => setCurrentView('profile')}
-              className="border-green-300 hover:bg-green-50"
-            >
-              <User className="h-4 w-4 mr-2" />
-              {currentPlayer ? 'Edit Profile' : 'Create Profile'}
-            </Button>
-          </div>
-        </div>
-
-        {/* Current Player Info */}
-        {currentPlayer && (
-          <div className="max-w-md mx-auto mb-8">
-            <Card className="border-green-200">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <User className="h-5 w-5 text-green-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-green-800">{currentPlayer.name}</div>
-                    <div className="text-sm text-green-600">
-                      Handicap: {currentPlayer.handicap || 'N/A'}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-
-        {/* Features Overview */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <Card className="border-green-200 hover:shadow-lg transition-shadow">
-            <CardHeader className="text-center">
-              <div className="p-3 bg-green-100 rounded-full w-fit mx-auto mb-2">
-                <Users className="h-6 w-6 text-green-600" />
-              </div>
-              <CardTitle className="text-green-800">Group Management</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription className="text-center">
-                Set up your golf group and choose from games that match your player count
-              </CardDescription>
-            </CardContent>
-          </Card>
-
-          <Card className="border-green-200 hover:shadow-lg transition-shadow">
-            <CardHeader className="text-center">
-              <div className="p-3 bg-green-100 rounded-full w-fit mx-auto mb-2">
-                <Target className="h-6 w-6 text-green-600" />
-              </div>
-              <CardTitle className="text-green-800">Live Scoring</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription className="text-center">
-                Real-time score tracking with multiple game formats and betting options
-              </CardDescription>
-            </CardContent>
-          </Card>
-
-          <Card className="border-green-200 hover:shadow-lg transition-shadow">
-            <CardHeader className="text-center">
-              <div className="p-3 bg-green-100 rounded-full w-fit mx-auto mb-2">
-                <DollarSign className="h-6 w-6 text-green-600" />
-              </div>
-              <CardTitle className="text-green-800">Betting Tracker</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription className="text-center">
-                Keep track of side bets and winnings throughout your round
-              </CardDescription>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Player Count Selection */}
-        <Card className="max-w-4xl mx-auto border-green-200">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl text-green-800">How many players in your group?</CardTitle>
-            <CardDescription>
-              Select your group size to see available games and betting options
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[2, 3, 4, 5, 6, 7, 8].map((count) => (
-                <Button
-                  key={count}
-                  variant="outline"
-                  className="h-20 text-lg font-semibold border-green-300 hover:bg-green-50 hover:border-green-500 transition-all"
-                  onClick={() => handlePlayerCountSelect(count)}
-                >
-                  <div className="flex flex-col items-center gap-2">
-                    <Users className="h-6 w-6" />
-                    <span>{count} Players</span>
-                  </div>
-                </Button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Quick Stats */}
-        <div className="mt-12 text-center">
-          <div className="grid grid-cols-3 gap-8 max-w-md mx-auto">
-            <div>
-              <div className="text-3xl font-bold text-green-600">15+</div>
-              <div className="text-sm text-green-700">Game Formats</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-green-600">Live</div>
-              <div className="text-sm text-green-700">Score Tracking</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-green-600">$$$</div>
-              <div className="text-sm text-green-700">Bet Management</div>
-            </div>
-          </div>
-        </div>
+        {/* Leaderboard and scoring components can now use `leaderboard` and `getPlayerTotal` */}
+        {/* ...rest of your ActiveGame UI... */}
       </div>
     </div>
   );
 };
 
-export default Index;
+export default ActiveGame;
