@@ -2,7 +2,13 @@
 
 ## API Specs and Postman
 
-https://documenter.getpostman.com/view/1756312/UVeDsT2b
+Free Version = 300 Requests per Day
+
+https://api.golfcourseapi.com/docs/api/
+
+GET REquest endpoint: 
+
+https://api.golfcourseapi.com/v1/search
 
 ## My Stuff
 
@@ -10,5 +16,6 @@ Thank you for activating your Golf Course API account. You are now ready to use 
 
 Your API Key is YHIW3PYA7MDSKP7UCTELVKR7MI. For any requests you make to the Golf Course API, please include a request header in the format Authorization: Key YHIW3PYA7MDSKP7UCTELVKR7MI.
 
-Thanks,
+
+
 
