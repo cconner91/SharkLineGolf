@@ -1,11 +1,9 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { User, Save, ArrowLeft } from "lucide-react";
 import { Player } from "@/types/golf";
@@ -30,30 +28,25 @@ const PlayerProfile = ({ player, onSave, onBack }: PlayerProfileProps) => {
     }
   });
 
+  const watchedName = form.watch('name');
+  const watchedAvatar = form.watch('avatar');
+
   const onSubmit = (data: Player) => {
-    if (!data.id) {
-      data.id = Date.now().toString();
-    }
+    if (!data.id) data.id = Date.now().toString();
     onSave(data);
   };
 
-  const getInitials = (name: string) => {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
-  };
+  const getInitials = (name: string) =>
+    name.split(' ').map(n => n[0]).join('').toUpperCase() || 'P';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100">
       <div className="container mx-auto px-4 py-8">
+        {/* Header */}
         <div className="mb-6">
-          <Button 
-            variant="outline" 
-            onClick={onBack}
-            className="mb-4"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
+          <Button variant="outline" onClick={onBack} className="mb-4 flex items-center gap-2">
+            <ArrowLeft className="h-4 w-4" /> Back
           </Button>
-          
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-green-600 rounded-full">
               <User className="h-6 w-6 text-white" />
@@ -78,25 +71,26 @@ const PlayerProfile = ({ player, onSave, onBack }: PlayerProfileProps) => {
                   {/* Avatar Section */}
                   <div className="flex items-center gap-4">
                     <Avatar className="h-20 w-20">
-                      <AvatarImage src={form.watch('avatar')} />
-                      <AvatarFallback className="bg-green-100 text-green-700 text-lg">
-                        {form.watch('name') ? getInitials(form.watch('name')) : 'P'}
-                      </AvatarFallback>
+                      {watchedAvatar ? (
+                        <AvatarImage src={watchedAvatar} />
+                      ) : (
+                        <AvatarFallback className="bg-green-100 text-green-700 text-lg">
+                          {getInitials(watchedName)}
+                        </AvatarFallback>
+                      )}
                     </Avatar>
-                    <div className="flex-1">
-                      <FormField
-                        control={form.control}
-                        name="avatar"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Avatar URL (optional)</FormLabel>
-                            <FormControl>
-                              <Input placeholder="https://example.com/avatar.jpg" {...field} />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+                    <FormField
+                      control={form.control}
+                      name="avatar"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Avatar URL (optional)</FormLabel>
+                          <FormControl>
+                            <Input placeholder="https://example.com/avatar.jpg" {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
                   </div>
 
                   {/* Basic Information */}
@@ -114,7 +108,6 @@ const PlayerProfile = ({ player, onSave, onBack }: PlayerProfileProps) => {
                         </FormItem>
                       )}
                     />
-
                     <FormField
                       control={form.control}
                       name="email"
@@ -137,12 +130,12 @@ const PlayerProfile = ({ player, onSave, onBack }: PlayerProfileProps) => {
                       <FormItem>
                         <FormLabel>Handicap Index</FormLabel>
                         <FormControl>
-                          <Input 
-                            type="number" 
-                            min="0" 
-                            max="54" 
-                            step="0.1"
-                            placeholder="18.5" 
+                          <Input
+                            type="number"
+                            min={0}
+                            max={54}
+                            step={0.1}
+                            placeholder="18.5"
                             {...field}
                             onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                           />
@@ -154,35 +147,26 @@ const PlayerProfile = ({ player, onSave, onBack }: PlayerProfileProps) => {
                     )}
                   />
 
-                  {/* Statistics (readonly for now) */}
+                  {/* Statistics (readonly) */}
                   {player && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-green-50 rounded-lg">
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-green-700">
-                          {player.totalGamesPlayed || 0}
-                        </div>
+                        <div className="text-2xl font-bold text-green-700">{player.totalGamesPlayed || 0}</div>
                         <div className="text-sm text-green-600">Games Played</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-green-700">
-                          ${player.totalWinnings || 0}
-                        </div>
+                        <div className="text-2xl font-bold text-green-700">${player.totalWinnings || 0}</div>
                         <div className="text-sm text-green-600">Total Winnings</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-green-700">
-                          {player.favoriteGame || 'N/A'}
-                        </div>
+                        <div className="text-2xl font-bold text-green-700">{player.favoriteGame || 'N/A'}</div>
                         <div className="text-sm text-green-600">Favorite Game</div>
                       </div>
                     </div>
                   )}
 
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-green-600 hover:bg-green-700"
-                  >
-                    <Save className="h-4 w-4 mr-2" />
+                  <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 flex items-center justify-center gap-2">
+                    <Save className="h-4 w-4" />
                     Save Profile
                   </Button>
                 </form>
