@@ -423,10 +423,57 @@ This project is built with:
 
 Simply open [Lovable](https://lovable.dev/projects/29ade2e2-9c53-416b-8bf5-66555e067fc4) and click on Share -> Publish.
 
-## Can I connect a custom domain to my Lovable project?
+____________________________
 
-Yes, you can!
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Intended Folder Structure
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+/src
+  /components
+    /ui            <- Reusable UI components (Card, Button, Input, etc.)
+    ActiveGame.tsx
+    GameSelection.tsx
+    PlayerProfile.tsx
+  /data
+    courses.ts
+    golfGames.ts
+  /pages
+    index.tsx      <- Main entry page
+  /types
+    golf.ts        <- Types and enums
+  /hooks
+    use-toast.ts   <- Optional custom hook for toast notifications
+  main.tsx
+  index.css        <- Tailwind + global styles
+
+
+
+  2. Data Flow
+
+Index.tsx
+
+Handles main app state: current view, selected game, player count, and current player.
+
+Calls the correct component based on currentView.
+
+GameSelection.tsx
+
+Receives playerCount.
+
+Shows available games from golfGames.
+
+Calls onGameSelect(game) to move to ActiveGame.
+
+ActiveGame.tsx
+
+Receives game and playerCount.
+
+Manages game state, hole scores, leaderboard.
+
+Calls onBack() to return to GameSelection.
+
+PlayerProfile.tsx
+
+Optional: create/edit player info.
+
+Calls onSave(player) to update app state in Index.tsx.
