@@ -287,4 +287,23 @@ const ActiveGame = ({ game, playerCount, onBack }: ActiveGameProps) => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-               
+                {getLeaderboard().map((player, idx) => (
+                  <div key={player.id} className="flex justify-between py-2 border-b border-green-100">
+                    <span className="font-semibold text-green-800">
+                      {idx + 1}. {player.name}
+                    </span>
+                    <span className="text-green-700 font-bold">
+                      {player.total} strokes
+                    </span>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ActiveGame;
