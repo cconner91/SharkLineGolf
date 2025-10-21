@@ -5,7 +5,7 @@ export interface Hole {
 }
 
 export interface Tee {
-  name: string;
+  teeName: string;
   courseRating: number;
   slopeRating: number;
   bogeyRating: number;
