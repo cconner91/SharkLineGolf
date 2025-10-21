@@ -14,7 +14,7 @@ export enum gameplayFormat {
   BestBall = "BestBall",
   Scramble = "Scramble",
   Shamble = "Shamble",
-  Modified = "Modified"
+  AlternateShot = "AltShot"
 }
 
 export enum matchupFormat {
@@ -22,7 +22,6 @@ export enum matchupFormat {
   H2H = "H2H",
   H2HModified = "H2HModified",
   TeamPlay = "TeamPlay",
-  ModifiedMatchup = "ModifiedMatchup"
 }
 
 // --------------------
