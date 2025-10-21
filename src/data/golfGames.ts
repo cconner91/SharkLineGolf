@@ -26,8 +26,8 @@
 
 //GameplayFormat Dependencies - AltShot, Shamble, Scramble, BestBall can only be utilized if the Matchup Format is TeamPlay, H2H Modified. 
 
+// Players may also choose a custom game or customize the pre-set game chosen.
 
-Players may also choose a custom game or customize the pre-set game chosen.
 
 import { GolfGame, scoringFormat, gameplayFormat, matchupFormat } from "@/types/golf";
 
@@ -40,7 +40,7 @@ export const golfGames: GolfGame[] = [
     maxPlayers: 8,
     scoringFormat: [scoringFormat.StrokePlay],
     gameplayFormat: [gameplayFormat.Individual, gameplayFormat.BestBall, gameplayFormat.Scramble, gameplayFormat.Shamble, gameplayFormat.AltShot], // multiple possible
-    matchupFormat: [matchupFormat.Solo, matchupFormat.H2H, matchupFormat.H2HModified, matchupFormat.TeamPlay, matchupFormat.ModifiedMatchup], // multiple possible
+    matchupFormat: [matchupFormat.Solo, matchupFormat.H2H, matchupFormat.H2HModified, matchupFormat.TeamPlay], // multiple possible
     bettingEnabled: true,
     handicapEnabled: true,
     tags: ['Classic', 'Traditional', 'Beginner Friendly']
@@ -65,7 +65,7 @@ export const golfGames: GolfGame[] = [
     minPlayers: 3,
     maxPlayers: 8,
     scoringFormat: [scoringFormat.MatchPlay],
-    gameplayFormat: [gameplayFormat.BestBall, gameplayFormat.Scramble, gameplayFormat.Shamble, gameplayFormat.Modified], // multiple possible
+    gameplayFormat: [gameplayFormat.BestBall, gameplayFormat.Scramble, gameplayFormat.Shamble, gameplayFormat.AltShot], // multiple possible
     matchupFormat: [matchupFormat.TeamPlay],
     bettingEnabled: true,
     handicapEnabled: true,
@@ -78,7 +78,7 @@ export const golfGames: GolfGame[] = [
     minPlayers: 2,
     maxPlayers: 8,
     scoringFormats: [scoringFormat.StrokePlay, scoringFormat.MatchPlay], // multiple possible
-    gameplayFormats: [gameplayFormat.Individual],
+    gameplayFormats: [gameplayFormat.Individual, gameplayFormat.BestBall, gameplayFormat.Scramble, gameplayFormat.Shamble, gameplayFormat.AltShot], // multiple possible,
     matchupFormats: [matchupFormat.H2H],
     bettingEnabled: true,
     handicapEnabled: true,
@@ -91,8 +91,8 @@ export const golfGames: GolfGame[] = [
     minPlayers: 2,
     maxPlayers: 4,
     scoringFormats: [scoringFormat.StrokePlay, scoringFormat.MatchPlay], // multiple possible
-    gameplayFormats: [gameplayFormat.Individual],
-    matchupFormats: [matchupFormat.H2H],
+    gameplayFormats: [gameplayFormat.Individual, gameplayFormat.BestBall, gameplayFormat.Scramble, gameplayFormat.Shamble, gameplayFormat.AltShot], // multiple possible,,
+    matchupFormats: [matchupFormat.H2H, matchupFormat.TeamPlay],
     bettingEnabled: true,
     handicapEnabled: true,
     tags: ['Classic', 'Betting', 'Traditional']
@@ -105,7 +105,7 @@ export const golfGames: GolfGame[] = [
     maxPlayers: 4,
     scoringFormats: [scoringFormat.PointsBased],
     gameplayFormats: [gameplayFormat.Individual],
-    matchupFormats: [matchupFormat.ModifiedMatchup],
+    matchupFormats: [matchupFormat.H2H],
     bettingEnabled: true,
     handicapEnabled: false, //handicaps can't be applied to this game
     tags: ['Strategy', 'Rotating', 'Partnership']
@@ -129,7 +129,7 @@ export const golfGames: GolfGame[] = [
     description: "Team format. All players tee off, best shot is selected, all play from there.",
     minPlayers: 3,
     maxPlayers: 8,
-    scoringFormats: [scoringFormat.StrokePlay, scoringFormat.MatchPlay, scoringFormat.PointsBased], // multiple possible
+    scoringFormats: [scoringFormat.StrokePlay, scoringFormat.MatchPlay], // multiple possible
     gameplayFormats: [gameplayFormat.Scramble],
     matchupFormats: [matchupFormat.TeamPlay],
     bettingEnabled: true,
@@ -202,14 +202,27 @@ export const golfGames: GolfGame[] = [
     tags: ['Team', 'Unique Scoring', 'Betting']
   },
   {
+    id: "ryder-cup",
+    name: "Ryder Cup",
+    description: "Team-based competition featuring multiple match formats (Fourball/BestBall, Foursomes/AltShot, and Singles) with points awarded for each match. Teams compete across multiple rounds, with total points determining the winner.",
+    minPlayers: 4,
+    maxPlayers: 24,
+    scoringFormats: [scoringFormat.StrokePlay, scoringFormat.MatchPlay, scoringFormat.PointsBased], 
+    gameplayFormats: [gameplayFormat.Individual, gameplayFormat.BestBall, gameplayFormat.Scramble, gameplayFormat.Shamble, gameplayFormat.AltShot], 
+    matchupFormats: [matchupFormat.H2H, matchupFormat.TeamPlay],
+    bettingEnabled: true,
+    handicapEnabled: true,
+    tags: ['Team', 'Unique Scoring', 'Tournament']
+  },
+  {
     id: "custom-game",
     name: "Custom Game",
     description: "Customize your own game utilizing one or multiple scoring, gameplay and matchup formats for each hole",
     minPlayers: 1,
     maxPlayers: 8,
     scoringFormats: [scoringFormat.StrokePlay, scoringFormat.MatchPlay, scoringFormat.PointsBased], // multiple possible
-    gameplayFormats: [gameplayFormat.Individual, gameplayFormat.BestBall, gameplayFormat.Scramble, gameplayFormat.Shamble, gameplayFormat.Modified], // multiple possible
-    matchupFormats: [matchupFormat.Solo, matchupFormat.H2H, matchupFormat.H2HHybrid, matchupFormat.TeamPlay],
+    gameplayFormats: [gameplayFormat.Individual, gameplayFormat.BestBall, gameplayFormat.Scramble, gameplayFormat.Shamble, gameplayFormat.AltShot], // multiple possible
+    matchupFormats: [matchupFormat.Solo, matchupFormat.H2H,  matchupFormat.H2HModified, matchupFormat.TeamPlay], // multiple possible
     bettingEnabled: true,
     handicapEnabled: true,
     tags: ['Team', 'Unique Scoring', 'Betting']
