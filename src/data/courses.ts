@@ -124,7 +124,6 @@ export const courses = [
     ]
   }
 ];
-export const courses = [
   {
     id: 17520,
     name: "Tobacco Road Gc",
@@ -249,7 +248,6 @@ export const courses = [
     ]
   }
 ];
-export const courses = [
   {
     id: 20886,
     name: "Maderas Golf Club",
