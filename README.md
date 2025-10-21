@@ -22,12 +22,12 @@ Extensive Course Database: Explore thousands of golf courses, complete with scor
 User Profiles: Create and customize your profile to track your progress, connect with friends, and share your golfing achievements.
 
 
-Join a community of golf enthusiasts and elevate your game with TeeUp where every swing counts! Download now and tee off into a world of fun and competition!
+Join a community of golf enthusiasts and elevate your game with SLG where every swing counts! Download now and tee off into a world of fun and competition!
 
 
 ## Golf Games
 
-Players can first select the total number of players that are in their group. TeeUp will provide them a list of different games which will work with the total number of players.
+Players can first select the total number of players that are in their group. SLG will provide them a list of different games which will work with the total number of players.
 
 Players may also choose a custom game or customize the pre-set game chosen. 
 
@@ -106,7 +106,7 @@ _______________________________________________________________
 
 ## Databases
 
-TeeUp will need to utilize the following data sets:
+SLG will need to utilize the following data sets:
 
 1. Database storing each golf game, including the rules, scoring, player criteria.
      -This may be a custom database I create
@@ -273,7 +273,7 @@ They will need to create a username
 
 ## Profile Section
 
-TeeUp will have elements of a social app. Users will be able to create their own profile and connect with other users. Since users will have their handicap and other data added, when they add another user and participate in a game, all of their data will be factored in.
+SLG will have elements of a social app. Users will be able to create their own profile and connect with other users. Since users will have their handicap and other data added, when they add another user and participate in a game, all of their data will be factored in.
 
 1. General Login Information
 2. Personal Profile Page
@@ -286,25 +286,25 @@ _______________________________________________________________
 
 Users will set up their matches and find the games to play in this section. 
 
-Users can add in other TeeUp users or set up players without the app as a general player. 
+Users can add in other SLG users or set up players without the app as a general player. 
 
 In this section users will do the following:
 
 1. Player Total: Users select the number of players for their match
-2. Player Selection: Users can add other TeeUp users or select General Player and provide them with an individual name or team name
+2. Player Selection: Users can add other SLG users or select General Player and provide them with an individual name or team name
 3. Course Selection: Select the course. If course is in database, all slope and course rating data along with specific scorecard will be attributed. If course is not in the list, users can manually add this information (not required). 
 4. Game Selection:
-   - TeeUp will provide the user with a list of games which meet the criteria.
+   - SLG will provide the user with a list of games which meet the criteria.
    - There will be a description of the game as well as the rules of the game selected
    - Once selected, users can make certain modifications to the game (will have to limit the types of modifications to ensure the rules of the game or automatic scoring isn't impacted)
    - If the user selects "Custom Game" they will need to input certain criteria such as (scoring stlye: stroke play, match play, hybrid) and determine other rules.
-   - Wagering - If the group wants to wager money, they can determine the wager amounts, pot, so TeeUp can track and score the winnings properly.
+   - Wagering - If the group wants to wager money, they can determine the wager amounts, pot, so SLG can track and score the winnings properly.
   
 5. Match Preview: Once game selection has been made, users will see a Match Preview. This preview will display an overview of the match, which holes certain players have strokes on (per the handicap indexes), and the stakes. This is generated prior to selecting "Begin Match" to account for any edits or changes that need to be made.
 6. Start Match - (There will have to a unique match ID or other identifier which will allow users on different networks to be part of the same match).
 _______________________________________________________________
 
-## TeeUp Games Section
+## SLG Games Section
 
 This section of the application will provide detailed descriptions and rules of the different games. 
 
