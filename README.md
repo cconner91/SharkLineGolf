@@ -49,8 +49,7 @@ These define how players or teams play their ball:
   ### BestBall = "Best Ball",                             // Each player plays their ball and best score counts
   ### Scramble = "Scramble",                              // All play, best shot is selected each time
   ### Shamble = "Shamble",                                // Drive selected, then all play own ball
-  ### AlternateShot = "Alternate Shot",                   // Teammates alternate shots
-  ### Modified = "Modified/Hybrid Format"                 // Combination of styles
+  ### AltShot = "Alternate Shot"                          // Teammates alternate shots
 
 
 ## Player Matchup Formats
@@ -58,9 +57,8 @@ These define the format in which the players or teams are matched up.
 
   ### Solo = "Solo",                                    // Solo Play
   ### H2H = "Head to Head",                             // H2H matchup - 1v1, 1v1v1, 1v1v1v1
-  ### H2HHybrid = "Head to Head Hybrid",                // H2H matchup hyrbid - 2v1, 1v3, 4v1 etc...
-  ### TeamPlay = "Team Play",                           // Team of 2 or more vs another team or 
-  ### ModifiedMatchup= "Modified Match Up"              // Combination of matchup styles
+  ### H2HModified = "H2HModified",                      // H2H matchup hyrbid - 2v1, 1v3, 4v1 etc...
+  ### TeamPlay = "Team Play"                            // Team of 2 or more vs another team or 
 
 
 
