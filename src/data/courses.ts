@@ -1,143 +1,127 @@
+// src/data/courses.ts
 
-import { Course } from "@/types/golf";
-
-export const courses: Course[] = [
+export const courses = [
   {
-    id: "pebble-beach",
-    name: "Pebble Beach Golf Links",
+    id: 24636,
+    name: "Pebble Beach Gl",
     location: {
-      address: "1700 17-Mile Drive",
+      address: "1700 17-Mile Drive, Pebble Beach, CA 93953, United States",
       city: "Pebble Beach",
       state: "CA",
-      country: "USA",
-      coordinates: {
-        latitude: 36.5674,
-        longitude: -121.9487
+      country: "United States",
+      latitude: 36.568806,
+      longitude: -121.95062
+    },
+    tees: [
+      {
+        teeName: "Blue",
+        courseRating: 74.9,
+        slopeRating: 144,
+        bogeyRating: 101.7,
+        totalYards: 6823,
+        totalMeters: 6239,
+        numberOfHoles: 18,
+        parTotal: 72,
+        frontCourseRating: 37.1,
+        frontSlopeRating: 141,
+        frontBogeyRating: 50.2,
+        backCourseRating: 37.8,
+        backSlopeRating: 147,
+        backBogeyRating: 51.5,
+        holes: [
+          { holeNumber: 1, par: 4, yardage: 378, handicap: 6 },
+          { holeNumber: 2, par: 5, yardage: 507, handicap: 10 },
+          { holeNumber: 3, par: 4, yardage: 397, handicap: 12 },
+          { holeNumber: 4, par: 4, yardage: 333, handicap: 16 },
+          { holeNumber: 5, par: 3, yardage: 189, handicap: 14 },
+          { holeNumber: 6, par: 5, yardage: 498, handicap: 2 },
+          { holeNumber: 7, par: 3, yardage: 107, handicap: 18 },
+          { holeNumber: 8, par: 4, yardage: 416, handicap: 4 },
+          { holeNumber: 9, par: 4, yardage: 483, handicap: 8 },
+          { holeNumber: 10, par: 4, yardage: 444, handicap: 3 },
+          { holeNumber: 11, par: 4, yardage: 370, handicap: 9 },
+          { holeNumber: 12, par: 3, yardage: 202, handicap: 17 },
+          { holeNumber: 13, par: 4, yardage: 401, handicap: 7 },
+          { holeNumber: 14, par: 5, yardage: 582, handicap: 1 },
+          { holeNumber: 15, par: 4, yardage: 393, handicap: 13 },
+          { holeNumber: 16, par: 4, yardage: 400, handicap: 11 },
+          { holeNumber: 17, par: 3, yardage: 182, handicap: 15 },
+          { holeNumber: 18, par: 5, yardage: 541, handicap: 5 }
+        ]
+      },
+      {
+        teeName: "Gold",
+        courseRating: 73.2,
+        slopeRating: 137,
+        bogeyRating: 98.7,
+        totalYards: 6464,
+        totalMeters: 5911,
+        numberOfHoles: 18,
+        parTotal: 72,
+        frontCourseRating: 36.1,
+        frontSlopeRating: 131,
+        frontBogeyRating: 48.3,
+        backCourseRating: 37.1,
+        backSlopeRating: 143,
+        backBogeyRating: 50.4,
+        holes: [
+          { holeNumber: 1, par: 4, yardage: 349, handicap: 6 },
+          { holeNumber: 2, par: 5, yardage: 458, handicap: 10 },
+          { holeNumber: 3, par: 4, yardage: 381, handicap: 12 },
+          { holeNumber: 4, par: 4, yardage: 308, handicap: 16 },
+          { holeNumber: 5, par: 3, yardage: 145, handicap: 14 },
+          { holeNumber: 6, par: 5, yardage: 490, handicap: 2 },
+          { holeNumber: 7, par: 3, yardage: 98, handicap: 18 },
+          { holeNumber: 8, par: 4, yardage: 388, handicap: 4 },
+          { holeNumber: 9, par: 4, yardage: 463, handicap: 8 },
+          { holeNumber: 10, par: 4, yardage: 428, handicap: 3 },
+          { holeNumber: 11, par: 4, yardage: 349, handicap: 9 },
+          { holeNumber: 12, par: 3, yardage: 187, handicap: 17 },
+          { holeNumber: 13, par: 4, yardage: 390, handicap: 7 },
+          { holeNumber: 14, par: 5, yardage: 570, handicap: 1 },
+          { holeNumber: 15, par: 4, yardage: 375, handicap: 13 },
+          { holeNumber: 16, par: 4, yardage: 378, handicap: 11 },
+          { holeNumber: 17, par: 3, yardage: 176, handicap: 15 },
+          { holeNumber: 18, par: 5, yardage: 531, handicap: 5 }
+        ]
+      },
+      {
+        teeName: "White",
+        courseRating: 71.8,
+        slopeRating: 134,
+        bogeyRating: 96.7,
+        totalYards: 6114,
+        totalMeters: 5591,
+        numberOfHoles: 18,
+        parTotal: 72,
+        frontCourseRating: 35.4,
+        frontSlopeRating: 129,
+        frontBogeyRating: 47.4,
+        backCourseRating: 36.4,
+        backSlopeRating: 139,
+        backBogeyRating: 49.3,
+        holes: [
+          { holeNumber: 1, par: 4, yardage: 337, handicap: 6 },
+          { holeNumber: 2, par: 5, yardage: 428, handicap: 10 },
+          { holeNumber: 3, par: 4, yardage: 340, handicap: 12 },
+          { holeNumber: 4, par: 4, yardage: 295, handicap: 16 },
+          { holeNumber: 5, par: 3, yardage: 134, handicap: 14 },
+          { holeNumber: 6, par: 5, yardage: 465, handicap: 2 },
+          { holeNumber: 7, par: 3, yardage: 94, handicap: 18 },
+          { holeNumber: 8, par: 4, yardage: 364, handicap: 4 },
+          { holeNumber: 9, par: 4, yardage: 436, handicap: 8 },
+          { holeNumber: 10, par: 4, yardage: 408, handicap: 3 },
+          { holeNumber: 11, par: 4, yardage: 338, handicap: 9 },
+          { holeNumber: 12, par: 3, yardage: 176, handicap: 17 },
+          { holeNumber: 13, par: 4, yardage: 370, handicap: 7 },
+          { holeNumber: 14, par: 5, yardage: 551, handicap: 1 },
+          { holeNumber: 15, par: 4, yardage: 338, handicap: 13 },
+          { holeNumber: 16, par: 4, yardage: 368, handicap: 11 },
+          { holeNumber: 17, par: 3, yardage: 166, handicap: 15 },
+          { holeNumber: 18, par: 5, yardage: 506, handicap: 5 }
+        ]
       }
-    },
-    scorecard: {
-      totalHoles: 18,
-      totalPar: 72,
-      totalYardage: 6828,
-      holes: [
-        { number: 1, par: 4, yardage: { "Champion": 377, "Regular": 345, "Forward": 325 }, handicap: 11 },
-        { number: 2, par: 5, yardage: { "Champion": 502, "Regular": 467, "Forward": 440 }, handicap: 15 },
-        { number: 3, par: 4, yardage: { "Champion": 388, "Regular": 353, "Forward": 325 }, handicap: 9 },
-        { number: 4, par: 4, yardage: { "Champion": 331, "Regular": 309, "Forward": 285 }, handicap: 13 },
-        { number: 5, par: 3, yardage: { "Champion": 188, "Regular": 170, "Forward": 150 }, handicap: 17 },
-        { number: 6, par: 5, yardage: { "Champion": 523, "Regular": 490, "Forward": 460 }, handicap: 5 },
-        { number: 7, par: 3, yardage: { "Champion": 106, "Regular": 95, "Forward": 85 }, handicap: 18 },
-        { number: 8, par: 4, yardage: { "Champion": 418, "Regular": 395, "Forward": 365 }, handicap: 3 },
-        { number: 9, par: 4, yardage: { "Champion": 466, "Regular": 435, "Forward": 405 }, handicap: 1 },
-        { number: 10, par: 4, yardage: { "Champion": 446, "Regular": 420, "Forward": 390 }, handicap: 6 },
-        { number: 11, par: 4, yardage: { "Champion": 380, "Regular": 350, "Forward": 320 }, handicap: 12 },
-        { number: 12, par: 3, yardage: { "Champion": 202, "Regular": 185, "Forward": 165 }, handicap: 16 },
-        { number: 13, par: 4, yardage: { "Champion": 392, "Regular": 365, "Forward": 335 }, handicap: 8 },
-        { number: 14, par: 5, yardage: { "Champion": 580, "Regular": 540, "Forward": 510 }, handicap: 2 },
-        { number: 15, par: 4, yardage: { "Champion": 396, "Regular": 370, "Forward": 340 }, handicap: 10 },
-        { number: 16, par: 4, yardage: { "Champion": 402, "Regular": 375, "Forward": 345 }, handicap: 14 },
-        { number: 17, par: 3, yardage: { "Champion": 178, "Regular": 160, "Forward": 140 }, handicap: 4 },
-        { number: 18, par: 5, yardage: { "Champion": 543, "Regular": 510, "Forward": 480 }, handicap: 7 }
-      ]
-    },
-    rating: 75.5,
-    slope: 144,
-    teeBoxes: [
-      { name: "Champion", color: "Black", totalYardage: 6828, rating: 75.5, slope: 144 },
-      { name: "Regular", color: "Blue", totalYardage: 6394, rating: 73.2, slope: 140 },
-      { name: "Forward", color: "Red", totalYardage: 5944, rating: 70.8, slope: 135 }
-    ]
-  },
-  {
-    id: "augusta-national",
-    name: "Augusta National Golf Club",
-    location: {
-      address: "2604 Washington Road",
-      city: "Augusta",
-      state: "GA",
-      country: "USA",
-      coordinates: {
-        latitude: 33.5030,
-        longitude: -82.0197
-      }
-    },
-    scorecard: {
-      totalHoles: 18,
-      totalPar: 72,
-      totalYardage: 7475,
-      holes: [
-        { number: 1, par: 4, yardage: { "Championship": 445, "Member": 420, "Forward": 395 }, handicap: 10 },
-        { number: 2, par: 5, yardage: { "Championship": 575, "Member": 540, "Forward": 505 }, handicap: 16 },
-        { number: 3, par: 4, yardage: { "Championship": 350, "Member": 330, "Forward": 310 }, handicap: 18 },
-        { number: 4, par: 3, yardage: { "Championship": 240, "Member": 220, "Forward": 200 }, handicap: 12 },
-        { number: 5, par: 4, yardage: { "Championship": 495, "Member": 470, "Forward": 445 }, handicap: 6 },
-        { number: 6, par: 3, yardage: { "Championship": 180, "Member": 165, "Forward": 150 }, handicap: 14 },
-        { number: 7, par: 4, yardage: { "Championship": 450, "Member": 425, "Forward": 400 }, handicap: 2 },
-        { number: 8, par: 5, yardage: { "Championship": 570, "Member": 535, "Forward": 500 }, handicap: 8 },
-        { number: 9, par: 4, yardage: { "Championship": 460, "Member": 435, "Forward": 410 }, handicap: 4 },
-        { number: 10, par: 4, yardage: { "Championship": 495, "Member": 470, "Forward": 445 }, handicap: 1 },
-        { number: 11, par: 4, yardage: { "Championship": 520, "Member": 495, "Forward": 470 }, handicap: 3 },
-        { number: 12, par: 3, yardage: { "Championship": 155, "Member": 140, "Forward": 125 }, handicap: 15 },
-        { number: 13, par: 5, yardage: { "Championship": 510, "Member": 485, "Forward": 460 }, handicap: 9 },
-        { number: 14, par: 4, yardage: { "Championship": 440, "Member": 415, "Forward": 390 }, handicap: 11 },
-        { number: 15, par: 5, yardage: { "Championship": 550, "Member": 525, "Forward": 500 }, handicap: 5 },
-        { number: 16, par: 3, yardage: { "Championship": 170, "Member": 155, "Forward": 140 }, handicap: 13 },
-        { number: 17, par: 4, yardage: { "Championship": 440, "Member": 415, "Forward": 390 }, handicap: 7 },
-        { number: 18, par: 4, yardage: { "Championship": 465, "Member": 440, "Forward": 415 }, handicap: 17 }
-      ]
-    },
-    rating: 76.2,
-    slope: 148,
-    teeBoxes: [
-      { name: "Championship", color: "Green", totalYardage: 7475, rating: 76.2, slope: 148 },
-      { name: "Member", color: "White", totalYardage: 7035, rating: 74.1, slope: 145 },
-      { name: "Forward", color: "Gold", totalYardage: 6585, rating: 71.8, slope: 140 }
-    ]
-  },
-  {
-    id: "torrey-pines-south",
-    name: "Torrey Pines Golf Course (South)",
-    location: {
-      address: "11480 N Torrey Pines Road",
-      city: "La Jolla",
-      state: "CA",
-      country: "USA",
-      coordinates: {
-        latitude: 32.8928,
-        longitude: -117.2504
-      }
-    },
-    scorecard: {
-      totalHoles: 18,
-      totalPar: 72,
-      totalYardage: 7698,
-      holes: [
-        { number: 1, par: 4, yardage: { "Championship": 452, "Regular": 425, "Forward": 385 }, handicap: 7 },
-        { number: 2, par: 4, yardage: { "Championship": 389, "Regular": 365, "Forward": 330 }, handicap: 15 },
-        { number: 3, par: 3, yardage: { "Championship": 198, "Regular": 180, "Forward": 155 }, handicap: 13 },
-        { number: 4, par: 5, yardage: { "Championship": 610, "Regular": 575, "Forward": 520 }, handicap: 3 },
-        { number: 5, par: 4, yardage: { "Championship": 453, "Regular": 425, "Forward": 385 }, handicap: 5 },
-        { number: 6, par: 5, yardage: { "Championship": 616, "Regular": 580, "Forward": 525 }, handicap: 1 },
-        { number: 7, par: 4, yardage: { "Championship": 454, "Regular": 425, "Forward": 385 }, handicap: 9 },
-        { number: 8, par: 3, yardage: { "Championship": 177, "Regular": 160, "Forward": 135 }, handicap: 17 },
-        { number: 9, par: 4, yardage: { "Championship": 472, "Regular": 445, "Forward": 405 }, handicap: 11 },
-        { number: 10, par: 4, yardage: { "Championship": 436, "Regular": 410, "Forward": 370 }, handicap: 14 },
-        { number: 11, par: 3, yardage: { "Championship": 221, "Regular": 200, "Forward": 175 }, handicap: 12 },
-        { number: 12, par: 5, yardage: { "Championship": 504, "Regular": 475, "Forward": 435 }, handicap: 8 },
-        { number: 13, par: 4, yardage: { "Championship": 478, "Regular": 450, "Forward": 410 }, handicap: 2 },
-        { number: 14, par: 4, yardage: { "Championship": 443, "Regular": 415, "Forward": 375 }, handicap: 10 },
-        { number: 15, par: 4, yardage: { "Championship": 470, "Regular": 440, "Forward": 400 }, handicap: 4 },
-        { number: 16, par: 3, yardage: { "Championship": 227, "Regular": 205, "Forward": 180 }, handicap: 16 },
-        { number: 17, par: 4, yardage: { "Championship": 444, "Regular": 415, "Forward": 375 }, handicap: 6 },
-        { number: 18, par: 5, yardage: { "Championship": 570, "Regular": 535, "Forward": 485 }, handicap: 18 }
-      ]
-    },
-    rating: 77.4,
-    slope: 151,
-    teeBoxes: [
-      { name: "Championship", color: "Black", totalYardage: 7698, rating: 77.4, slope: 151 },
-      { name: "Regular", color: "Blue", totalYardage: 7230, rating: 75.2, slope: 147 },
-      { name: "Forward", color: "White", totalYardage: 6555, rating: 72.1, slope: 142 }
     ]
   }
 ];
+
