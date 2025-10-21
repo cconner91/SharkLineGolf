@@ -132,3 +132,27 @@ export interface Bet {
 export interface CustomGame extends Omit<GolfGame, 'id'> {
   baseGameId?: string; // optional reference to a preset game
 }
+
+
+// --------------------
+// Defining front9 and back9 custom formatting logic for scoring, gameplay and matchup
+// --------------------
+
+import { Player, GolfGame, scoringFormat, gameplayFormat, matchupFormat } from './golf';
+
+export interface HoleFormat {
+  scoringFormat: scoringFormat;
+  gameplayFormat: gameplayFormat;
+  matchupFormat: matchupFormat;
+}
+
+export interface GameInstance {
+  id: string;
+  name: string;
+  players: Player[];
+  baseGame: GolfGame; // The preset game selected
+  handicapEnabled: boolean;
+  front9?: HoleFormat;  // Optional: overrides for front 9
+  back9?: HoleFormat;   // Optional: overrides for back 9
+  scores?: Record<string, number[]>; // playerId -> hole scores
+}
