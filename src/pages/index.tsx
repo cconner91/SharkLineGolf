@@ -1,57 +1,79 @@
+// src/pages/Index.tsx
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { CourseSelector } from "@/components/CourseSelector";
-import { PlayerForm } from "@/components/PlayerForm";
-import { courses } from "@/data/courses";
-import ActiveGame from "./ActiveGame";
+import { Player, GolfGame, Course } from "@/types/golf";
+import SetupPage from "./SetupPage";
+import GameSelectionPage from "./GameSelectionPage";
+import ActiveGamePage from "./ActiveGamePage";
 
-export default function App() {
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const [players, setPlayers] = useState([]);
-  const [gameStarted, setGameStarted] = useState(false);
+type AppView = "setup" | "gameSelection" | "activeGame";
 
-  const handleStartGame = () => {
-    if (!selectedCourse || players.length === 0) {
-      alert("Please select a course and add at least one player.");
-      return;
-    }
-    setGameStarted(true);
+export default function Index() {
+  // Main routing state
+  const [currentView, setCurrentView] = useState<AppView>("setup");
+  
+  // Data that flows through the app
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [selectedTeeBox, setSelectedTeeBox] = useState<string | null>(null);
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [selectedGame, setSelectedGame] = useState<GolfGame | null>(null);
+
+  // Setup -> Game Selection
+  const handleSetupComplete = (course: Course, teeBox: string, playerList: Player[]) => {
+    setSelectedCourse(course);
+    setSelectedTeeBox(teeBox);
+    setPlayers(playerList);
+    setCurrentView("gameSelection");
   };
 
-  if (gameStarted) {
+  // Game Selection -> Active Game
+  const handleGameSelect = (game: GolfGame) => {
+    setSelectedGame(game);
+    setCurrentView("activeGame");
+  };
+
+  // Navigation back handlers
+  const handleBackToSetup = () => {
+    setCurrentView("setup");
+  };
+
+  const handleBackToGameSelection = () => {
+    setCurrentView("gameSelection");
+  };
+
+  // Render current view
+  if (currentView === "setup") {
     return (
-      <ActiveGame
-        game={{ id: "stroke-play", name: "Stroke Play", description: "Standard Stroke Play Round" }}
-        playerCount={players.length}
-        onBack={() => setGameStarted(false)}
+      <SetupPage
+        initialCourse={selectedCourse}
+        initialTeeBox={selectedTeeBox}
+        initialPlayers={players}
+        onComplete={handleSetupComplete}
       />
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100">
-      <div className="container mx-auto px-4 py-10 space-y-8">
-        <h1 className="text-3xl font-bold text-green-800 text-center">
-          Golf Round Setup
-        </h1>
+  if (currentView === "gameSelection") {
+    return (
+      <GameSelectionPage
+        playerCount={players.length}
+        onGameSelect={handleGameSelect}
+        onBack={handleBackToSetup}
+      />
+    );
+  }
 
-        <CourseSelector
-          courses={courses}
-          selectedCourse={selectedCourse}
-          onSelect={setSelectedCourse}
-        />
+  if (currentView === "activeGame" && selectedGame && selectedCourse && selectedTeeBox) {
+    return (
+      <ActiveGamePage
+        game={selectedGame}
+        course={selectedCourse}
+        teeBox={selectedTeeBox}
+        players={players}
+        onBack={handleBackToGameSelection}
+      />
+    );
+  }
 
-        <PlayerForm players={players} setPlayers={setPlayers} />
-
-        <div className="flex justify-center">
-          <Button
-            onClick={handleStartGame}
-            className="bg-green-600 hover:bg-green-700 text-white"
-          >
-            Start Round
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
+  // Fallback (shouldn't happen)
+  return null;
 }
